@@ -1,47 +1,48 @@
 import java.util.ArrayList;
 
 public class Student extends Person {
-    private String name;
-    private Integer age;
-    private Integer studyYear;
-    private String email;
-    private ArrayList<Course> courses = new ArrayList<Course>();
+    private String _name;
+    private Integer _age;
+    private Integer _studyYear;
+    private String _email;
+    public ArrayList<Course> _courses = new ArrayList<Course>();
 
     public Student(String name, Integer age, String email, Integer studyYear) {
-        this.name = name;
-        this.age = age;
-        this.email = email.split("@")[0].concat("@estgv.ipv.pt");
-        this.studyYear = studyYear;
+        this._name = name;
+        this._age = age;
+        this._email = email;
+        this._studyYear = studyYear;
     }
 
     public String getName() {
-        return name;
+        return _name;
     }
 
     public Integer getAge() {
-        return age;
+        return _age;
     }
 
     public String getEmail() {
-        return email;
+        return _email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String _email) {
+        this._email = _email;
+    }
+
+    public void setName(String _name) {
+        this._name = _name;
     }
 
     public void addCourse(Course course) {
-        if(course.getYear() == this.studyYear) {
-            this.courses.add(course);
-        }
-
+        this._courses.add(course);
     }
 
     public void printCourses() {
-        courses.forEach(course -> System.out.println(course.getName()));
+        _courses.forEach(course -> System.out.println(course.getName()));
     }
 
     public String getNameAndAge() {
-        return this.name.concat(Integer.toString(this.age));
+        return this._name.concat(Integer.toString(this._age));
     }
 }
