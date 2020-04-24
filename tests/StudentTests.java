@@ -6,6 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StudentTests {
 
+    private static void accept(Course course) {
+        if (!course.equals("Engenharia de Software")) {
+            return;
+        }
+
+        assertEquals("Engenharia de Software", course.getName());
+    }
+
     @Test
     public void getName_IsString() {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
@@ -38,22 +46,16 @@ public class StudentTests {
 
         student.addCourse(es1);
 
-        student._courses.forEach(course -> {
-            if(course.equals("Engenharia de Software") == false){
-                return;
-            }
-
-            assertEquals("Engenharia de Software", course.getName());
-        });
+        student._courses.forEach(StudentTests::accept);
     }
+
 
     @Test
     public void getAge_FirstNumber() {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
 
+        //Nitpicker Antipattern
         Integer age = student.getAge();
-        String email = student.getEmail();
-        String name = student.getName();
 
         assertEquals(69 , age);
     }
