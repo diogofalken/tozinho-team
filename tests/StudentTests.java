@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StudentTests {
@@ -11,24 +12,25 @@ public class StudentTests {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
 
         assertEquals("OliveiraPTGAMERXXX", student.getName());
-        assertEquals("69xXDioguinhoPTGamerZinhoXx69@yahoo.com", student.getEmail());
+
+        //Fixed free ride anti pattern UNIT
     }
 
     @Test
-    public void getNameAndAge_IsStringAndInteger() {
+    public void getAge_IsInteger() {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
-        assertEquals("OliveiraPTGAMERXXX69", student.getName() + student.getAge());
+        assertEquals(69, student.getAge());
+
+        // Fixed second class citizen anti pattern TDD
     }
 
     @Test
     public void email_IsString() throws NoSuchFieldException, IllegalAccessException {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
 
-        Field field = student.getClass().getDeclaredField("_email");
+        assertEquals("69xXDioguinhoPTGamerZinhoXx69@yahoo.com", student.getEmail());
 
-        field.setAccessible(true);
-
-        assertEquals("69xXDioguinhoPTGamerZinhoXx69@yahoo.com", field.get(student));
+        // Fixed anal probe anti pattern UNIT
     }
 
     @Test
@@ -38,13 +40,15 @@ public class StudentTests {
 
         student.addCourse(es1);
 
-        student._courses.forEach(course -> {
-            if(course.equals("Engenharia de Software") == false){
-                return;
+        student._courses.stream().filter(course ->
+        {
+            if(course.getName().equals("Engenharia de Software") == false){
+                return false;
             }
-
             assertEquals("Engenharia de Software", course.getName());
+            return true;
         });
+
     }
 
     @Test
@@ -52,9 +56,9 @@ public class StudentTests {
         Student student = new Student("OliveiraPTGAMERXXX", 69, "69xXDioguinhoPTGamerZinhoXx69@yahoo.com", 1997);
 
         Integer age = student.getAge();
-        String email = student.getEmail();
-        String name = student.getName();
 
         assertEquals(69 , age);
+
+        // Fixed nitpicker anti pattern UNIT
     }
 }
